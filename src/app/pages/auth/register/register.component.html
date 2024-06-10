@@ -1,0 +1,19 @@
+<div class="w-full shadow-lg min-h-screen justify-center flex flex-col items-center z-100 px-4">
+    <div class=" border-solid border-2 border-black rounded-md p-[25px] w-1/4 h-1/2">
+        <form [formGroup]="registerForm" class="flex flex-col gap-y-2">
+            <label for="email">E-mail:</label>
+            <input class="bg-grey-100" id="email" formControlName="email">
+            @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                <div>Introduzca un e-mail válido</div>
+            }
+            <label for="user_name">Usuario:</label>
+            <input class="bg-grey-100" id="user_name" formControlName="user_name">
+            @if (registerForm.get('user_name')?.invalid && registerForm.get('user_name')?.touched) {
+                <div>Introduzca un nombre de usuario válido</div>
+            }
+            <label for="password">Contraseña:</label>
+            <input class="bg-grey-100" type="password" id="password" formControlName="password">
+        </form>
+    <button class="bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded gap-y-2" type="submit" (click)="onSubmit()" [disabled]="registerForm.invalid">Registrarse</button>
+    </div>
+</div>
