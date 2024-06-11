@@ -24,12 +24,11 @@ export class AuthEffects {
                     tap((res) => {
                         const token = JSON.stringify({ token: res.token })
                         localStorage.setItem('token', token);
-                        console.log(token)
                     }),
                     concatMap((res) => [
 
-                        actionAuth.actionAuthMe({ token: res }),
-                      
+                        actionAuth.actionAuthMe({ token: res.token }),
+
                     ]),
                     catchError((error) => of(actionAuth.authError({ error })))
                 )
@@ -45,11 +44,10 @@ export class AuthEffects {
                     tap((res) => {
                         const token = JSON.stringify({ token: res.token })
                         localStorage.setItem('token', token);
-                        console.log(token)
                     }),
                     concatMap((res) => [
 
-                        actionAuth.actionAuthMe({ token: res }),
+                        actionAuth.actionAuthMe({ token: res.token }),
                       
                     ]),
                     catchError((error) => of(actionAuth.authError({ error })))
@@ -64,7 +62,7 @@ export class AuthEffects {
             mergeMap((action) => {
                 const { token } = action;
 
-                return this.authService.getUserData(token.token).pipe(
+                return this.authService.getUserData(token).pipe(
                     mergeMap((user) => [
                         actionAuth.authAction({ isLogged: true }), //Se dispara effecto ChangePage$
                         actionAuth.getUserAction({ user: user }),

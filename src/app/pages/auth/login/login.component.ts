@@ -3,7 +3,7 @@ import { ReactiveFormsModule, FormControl, Validators, FormGroup } from '@angula
 import { Store } from '@ngrx/store';
 import { login } from '../../../store/actions/user.actions';
 import { Router } from '@angular/router';
-import { selectErrorAuth, selectIsLogged, selectLoadingAuth } from '../../../store/selectors/user.selector';
+import { selectErrorAuth, selectIsLogged, selectLoadingAuth, selectUserAuth } from '../../../store/selectors/user.selector';
 import { Subscription, Observable } from 'rxjs';
 import { AppState } from '../../../store/app.reducer';
 
@@ -32,7 +32,7 @@ export class LoginComponent {
 
   token: any;
   disabled:boolean = true
-
+  
   constructor(
     private store: Store<AppState>,
     private router: Router
@@ -49,18 +49,6 @@ export class LoginComponent {
       ])
     })
   }
-  
-
-  onSubmit(){
-    if(this.loginForm.value != null){
-      const submit = {
-        email: this.loginForm.get('email')?.value,
-        password: this.loginForm.get('password')?.value
-      }
-      console.log(submit)
-      this.store.dispatch(login({ ...submit }))
-    }
-  }
 
   ngOnInit(): void {
     this.loading$ = this.store.select(selectLoadingAuth)
@@ -72,11 +60,23 @@ export class LoginComponent {
         this.error = err
         if (err) this.loading = false
       })
+
   }
+
   ngOnDestroy(): void {
     this._loading?.unsubscribe()
     this._isLogged?.unsubscribe()
     this.error$?.unsubscribe()
+  }
+
+  onSubmit(){
+    if(this.loginForm.value != null){
+      const submit = {
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value
+      }
+      this.store.dispatch(login({ ...submit }))
+    }
   }
 
 }

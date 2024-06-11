@@ -38,7 +38,6 @@ export class RegisterComponent {
         user_name: this.registerForm.get('user_name')?.value,
         password: this.registerForm.get('password')?.value
         }
-      console.log(submit)
       this.store.dispatch(register({ ...submit }))
     }
   }

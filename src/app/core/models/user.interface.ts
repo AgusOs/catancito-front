@@ -5,5 +5,5 @@ export interface User {
     password: string;
     profile_img?: any;
     wins?: number;
-    total_matches?: number
+    total_matches?: number;
 }
