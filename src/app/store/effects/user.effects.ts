@@ -87,7 +87,7 @@ export class AuthEffects {
             mergeMap((action) => {
                 const { isLogged } = action;
                 if (isLogged) {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/home']);
                     return of(actionAuth.successAuth());
                 }
                 else return of(actionAuth.notLogged())

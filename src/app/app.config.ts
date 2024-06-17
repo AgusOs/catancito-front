@@ -5,8 +5,6 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
-import { LoginComponent } from './pages/auth/login/login.component';
-
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { appReducers } from './store/app.reducer';
@@ -21,7 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(appReducers),
     provideEffects(EffectsArray),
     provideHttpClient(withFetch()),
-    LoginComponent,
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };
